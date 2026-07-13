@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#13152f"/><stop offset=".55" stop-color="#4e45db"/><stop offset="1" stop-color="#1dbcea"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#b7adff" stop-opacity=".8"/><stop offset="1" stop-color="#b7adff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" rx="52" fill="url(#bg)"/>
+  <circle cx="925" cy="180" r="260" fill="url(#glow)"/>
+  <circle cx="1000" cy="450" r="165" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="52"/>
+  <path d="M815 145l138 74-83 157-137-74z" fill="#82efd0" fill-opacity=".9"/>
+  <text x="90" y="285" fill="#fff" font-family="Inter,Arial" font-size="86" font-weight="800">NEXA TOPUP</text>
+  <text x="94" y="360" fill="#e9e8ff" font-family="Inter,Arial" font-size="32">Top up game favorit, tanpa ribet.</text>
+  <rect x="94" y="410" width="226" height="64" rx="32" fill="#fff"/>
+  <text x="136" y="451" fill="#3e36bd" font-family="Inter,Arial" font-size="23" font-weight="700">MULAI TOP UP</text>
+</svg>

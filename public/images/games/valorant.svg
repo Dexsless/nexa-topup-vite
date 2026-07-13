@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="vl-title">
+  <title id="vl-title">Futuristic crystal field abstract artwork</title>
+  <defs>
+    <linearGradient id="vl-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111827"/><stop offset=".55" stop-color="#27223d"/><stop offset="1" stop-color="#7f1d3d"/></linearGradient>
+    <linearGradient id="vl-crystal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fecdd3"/><stop offset=".44" stop-color="#fb7185"/><stop offset="1" stop-color="#be123c"/></linearGradient>
+    <linearGradient id="vl-ice"><stop stop-color="#ecfeff"/><stop offset="1" stop-color="#22d3ee" stop-opacity=".1"/></linearGradient>
+    <filter id="vl-glow"><feGaussianBlur stdDeviation="16"/></filter>
+  </defs>
+  <rect width="800" height="520" rx="32" fill="url(#vl-bg)"/>
+  <path d="M-35 443 194 103l163 208L503 57l332 390v73H-35Z" fill="#0b1020" opacity=".52"/>
+  <path d="m157 432 89-305 72 150-41 169Z" fill="url(#vl-crystal)"/>
+  <path d="m280 446 100-345 85 210-64 135Z" fill="url(#vl-ice)" stroke="#a5f3fc" stroke-width="3"/>
+  <path d="m408 446 128-303 85 207-54 96Z" fill="url(#vl-crystal)" opacity=".9"/>
+  <path d="M76 401h648" stroke="#fb7185" stroke-width="30" opacity=".18" filter="url(#vl-glow)"/>
+  <path d="M76 401h648" stroke="#fda4af" stroke-width="3" opacity=".75"/>
+  <g fill="none" stroke="#cffafe" stroke-linecap="round">
+    <path d="m70 116 89-44 75 31" stroke-width="4"/><path d="m631 92 91 47-43 64" stroke-width="3" opacity=".65"/>
+    <path d="M80 137h82M649 218h74" stroke-width="2" opacity=".45"/>
+  </g>
+  <g fill="#fb7185"><circle cx="94" cy="401" r="7"/><circle cx="706" cy="401" r="7"/></g>
+</svg>

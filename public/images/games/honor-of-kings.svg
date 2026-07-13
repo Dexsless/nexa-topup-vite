@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="hk-title">
+  <title id="hk-title">Royal orbit abstract artwork</title>
+  <defs>
+    <linearGradient id="hk-bg" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#2b0b2f"/><stop offset=".52" stop-color="#6b153f"/><stop offset="1" stop-color="#b45309"/></linearGradient>
+    <linearGradient id="hk-gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fef3c7"/><stop offset=".45" stop-color="#f59e0b"/><stop offset="1" stop-color="#fef3c7"/></linearGradient>
+    <radialGradient id="hk-halo"><stop stop-color="#fbbf24" stop-opacity=".45"/><stop offset="1" stop-color="#fbbf24" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="800" height="520" rx="32" fill="url(#hk-bg)"/>
+  <circle cx="410" cy="260" r="240" fill="url(#hk-halo)"/>
+  <g transform="translate(410 260)" fill="none" stroke="url(#hk-gold)">
+    <ellipse rx="240" ry="88" stroke-width="3" transform="rotate(-18)" opacity=".65"/>
+    <ellipse rx="181" ry="66" stroke-width="2" transform="rotate(23)" opacity=".48"/>
+    <circle r="118" stroke-width="9" stroke-dasharray="54 20" transform="rotate(-12)"/>
+    <circle r="73" stroke-width="3" opacity=".75"/>
+  </g>
+  <path d="m410 170 32 58 67 13-47 49 8 68-60-30-60 30 8-68-47-49 67-13Z" fill="#4c1239" stroke="url(#hk-gold)" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="410" cy="260" r="25" fill="#fef3c7"/>
+  <g fill="#fcd34d">
+    <circle cx="178" cy="333" r="9"/><circle cx="642" cy="187" r="9"/><circle cx="257" cy="151" r="6"/><circle cx="562" cy="374" r="6"/>
+  </g>
+  <g fill="none" stroke="#fde68a" stroke-width="3" opacity=".52"><path d="M73 99h136l31 31"/><path d="M727 421H591l-31-31"/></g>
+</svg>

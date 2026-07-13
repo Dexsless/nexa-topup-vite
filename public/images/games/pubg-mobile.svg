@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="pm-title">
+  <title id="pm-title">Tactical terrain abstract artwork</title>
+  <defs>
+    <linearGradient id="pm-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#132a2a"/><stop offset=".55" stop-color="#315348"/><stop offset="1" stop-color="#b16c2b"/></linearGradient>
+    <radialGradient id="pm-radar"><stop stop-color="#fbbf24" stop-opacity=".55"/><stop offset="1" stop-color="#fbbf24" stop-opacity="0"/></radialGradient>
+    <pattern id="pm-grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0v42" fill="none" stroke="#d1fae5" stroke-width="1" opacity=".12"/></pattern>
+  </defs>
+  <rect width="800" height="520" rx="32" fill="url(#pm-bg)"/>
+  <rect width="800" height="520" rx="32" fill="url(#pm-grid)"/>
+  <circle cx="440" cy="250" r="208" fill="url(#pm-radar)"/>
+  <g fill="none" stroke="#d1fae5" opacity=".28">
+    <path d="M38 345c79-72 127 35 210-28s117-132 208-87 107 97 205 48 117-14 139 10" stroke-width="3"/>
+    <path d="M0 401c103-77 184 25 280-30s103-108 204-55 175 13 316-36" stroke-width="2"/>
+    <path d="M95 184c58-39 112 6 159-29s125-74 194-26 155 18 235-32" stroke-width="2"/>
+  </g>
+  <g transform="translate(438 250)" fill="none">
+    <circle r="145" stroke="#fde68a" stroke-width="2" stroke-dasharray="12 10" opacity=".5"/>
+    <circle r="94" stroke="#fbbf24" stroke-width="4" opacity=".72"/>
+    <path d="M-165 0h330M0-165v330" stroke="#ecfccb" stroke-width="2" opacity=".35"/>
+    <path d="M0-94A94 94 0 0 1 84 42L0 0Z" fill="#fbbf24" opacity=".2"/>
+    <circle r="16" fill="#fef3c7" stroke="#f59e0b" stroke-width="5"/>
+  </g>
+  <g fill="#ecfccb" opacity=".75"><path d="m102 104 10 22 24 3-18 16 5 24-21-12-22 12 5-24-18-16 25-3Z"/><circle cx="680" cy="415" r="6"/></g>
+  <path d="M65 454h155M580 76h155" stroke="#fcd34d" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+</svg>

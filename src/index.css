@@ -1,0 +1,467 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-nexa-50: #f2f1ff;
+  --color-nexa-100: #e6e3ff;
+  --color-nexa-500: #6257ff;
+  --color-nexa-600: #5146da;
+  --color-nexa-700: #4237b5;
+  /* Rebrand palette: utility `violet-*` di seluruh UI mengikuti token ini. */
+  --color-violet-50: #f3f1ff;
+  --color-violet-100: #e8e4ff;
+  --color-violet-200: #d3ccff;
+  --color-violet-300: #b4a7ff;
+  --color-violet-400: #8f7cff;
+  --color-violet-500: #7768ff;
+  --color-violet-600: #6257ff;
+  --color-violet-700: #5045dc;
+  --color-violet-800: #4239b5;
+  --color-violet-900: #373195;
+}
+
+:root {
+  color: #111827;
+  background: #f7f8fc;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 8% 3%, rgb(98 87 255 / 0.055), transparent 22rem),
+    #f7f8fc;
+}
+
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+:focus-visible {
+  outline: 3px solid #5045dc;
+  outline-offset: 3px;
+}
+
+::selection {
+  color: white;
+  background: #6257ff;
+}
+
+.page-container {
+  @apply mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8;
+}
+
+.section-space {
+  @apply mt-14 md:mt-[72px];
+}
+
+.brand-mark {
+  @apply relative grid size-8 place-items-center overflow-hidden rounded-[11px] bg-[#171831] text-xs font-black text-white shadow-sm;
+}
+
+.brand-mark::after {
+  content: "";
+  @apply absolute -right-1 -top-1 size-4 rounded-full bg-cyan-300;
+  box-shadow: -12px 15px 20px rgb(110 94 255 / 0.7);
+}
+
+.brand-mark span {
+  @apply relative z-10;
+}
+
+.nav-link {
+  @apply rounded-xl px-3 py-2 text-[13px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-slate-950;
+}
+
+.nav-link.active {
+  @apply bg-violet-50 text-violet-700;
+}
+
+.mobile-nav-link {
+  @apply rounded-xl px-3 py-3 text-[15px] font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950;
+}
+
+.mobile-nav-link.active {
+  @apply bg-violet-50 text-violet-700;
+}
+
+.icon-button {
+  @apply inline-grid size-10 shrink-0 place-items-center rounded-xl text-slate-600 transition hover:bg-slate-100 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 disabled:opacity-50;
+}
+
+.cart-badge {
+  @apply absolute -right-0.5 -top-0.5 grid size-[17px] place-items-center rounded-full bg-violet-600 text-[9px] font-extrabold text-white ring-2 ring-white;
+}
+
+.search-box {
+  @apply flex h-10 w-full items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 transition focus-within:border-violet-700 focus-within:bg-white focus-within:ring-2 focus-within:ring-violet-700;
+}
+
+.search-box input {
+  @apply h-full min-w-0 flex-1 border-0 bg-transparent text-[13px] text-slate-900 outline-none placeholder:text-slate-500;
+}
+
+.button-primary,
+.button-secondary,
+.button-light,
+.button-danger {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-55;
+}
+
+.button-primary {
+  @apply bg-violet-600 text-white shadow-[0_9px_22px_rgba(98,87,255,0.22)] hover:-translate-y-0.5 hover:bg-violet-700 focus-visible:ring-violet-600;
+}
+
+.button-secondary {
+  @apply border border-slate-200 bg-white text-slate-700 shadow-sm hover:border-slate-300 hover:bg-slate-50 focus-visible:ring-violet-500;
+}
+
+.button-light {
+  @apply bg-white text-violet-700 shadow-lg shadow-slate-950/10 hover:-translate-y-0.5 hover:bg-violet-50 focus-visible:ring-white;
+}
+
+.button-danger {
+  @apply bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500;
+}
+
+.eyebrow {
+  @apply text-[11px] font-extrabold tracking-[0.16em] text-violet-600;
+}
+
+.link-arrow {
+  @apply inline-flex min-h-11 items-center gap-1.5 rounded-xl px-2 text-sm font-bold text-violet-700 transition hover:gap-2.5 hover:text-violet-900;
+}
+
+.hero-shell {
+  @apply relative min-h-[410px] overflow-hidden rounded-[24px] bg-slate-900 shadow-[0_18px_50px_rgba(23,24,56,0.16)] sm:min-h-[400px] lg:min-h-[420px];
+}
+
+.hero-slide {
+  @apply pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700;
+}
+
+.hero-slide.active {
+  @apply pointer-events-auto z-[1] opacity-100;
+  animation: hero-fade 0.55s ease-out;
+}
+
+.hero-slide.leaving {
+  @apply pointer-events-none z-0 opacity-0;
+}
+
+.hero-grid {
+  @apply absolute inset-0 opacity-[0.09];
+  background-image: linear-gradient(rgb(255 255 255 / 0.55) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.55) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to left, #000 20%, transparent 88%);
+}
+
+.hero-glow {
+  @apply absolute -right-20 -top-36 size-[470px] rounded-full opacity-35 blur-[90px];
+}
+
+.hero-art {
+  @apply absolute bottom-0 right-0 top-0 hidden w-[46%] sm:block;
+}
+
+.hero-chip {
+  @apply absolute left-[43%] top-[42%] grid size-[148px] -translate-x-1/2 -translate-y-1/2 rotate-[-8deg] place-items-center rounded-[40px] border border-white/25 bg-white/15 text-white shadow-2xl backdrop-blur-md lg:size-[178px];
+}
+
+.hero-chip::before,
+.hero-chip::after {
+  content: "";
+  @apply absolute rounded-full bg-white/70;
+}
+
+.hero-chip::before {
+  @apply -bottom-2 -right-2 size-8;
+}
+
+.hero-chip::after {
+  @apply -left-4 top-2 size-4;
+}
+
+.hero-spark {
+  @apply absolute right-[11%] top-[16%] rotate-12 rounded-2xl bg-white/15 p-4 text-white/90 backdrop-blur;
+}
+
+.orbit {
+  @apply absolute rounded-full border border-white/20;
+}
+
+.orbit-one {
+  @apply -right-16 top-8 size-[330px] lg:size-[410px];
+}
+
+.orbit-two {
+  @apply bottom-[-100px] left-8 size-[270px] border-[38px] border-white/10 lg:size-[350px];
+}
+
+.carousel-arrow {
+  @apply absolute bottom-5 z-20 grid size-10 place-items-center rounded-full border border-white/15 bg-slate-950/20 text-white backdrop-blur transition hover:bg-white hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white;
+}
+
+.carousel-dot {
+  @apply grid size-11 place-items-center rounded-full bg-transparent transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white;
+}
+
+.carousel-dot::before {
+  content: "";
+  @apply h-1.5 w-1.5 rounded-full bg-white/45 transition-all;
+}
+
+.carousel-dot:hover::before,
+.carousel-dot.active::before {
+  @apply bg-white;
+}
+
+.carousel-dot.active::before {
+  @apply w-6;
+}
+
+.promo-grid {
+  @apply grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2 md:gap-4;
+}
+
+.promo-card {
+  @apply relative min-h-[150px] overflow-hidden rounded-[20px] p-4 shadow-[0_12px_30px_rgba(15,23,42,0.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(15,23,42,0.14)] md:min-h-[170px] md:p-5;
+}
+
+.promo-card.featured {
+  @apply col-span-2 min-h-[210px] p-5 md:row-span-2 md:min-h-[356px] md:p-7;
+}
+
+.promo-orb {
+  @apply absolute rounded-full border border-white/20 bg-white/10;
+}
+
+.promo-orb.one {
+  @apply -right-10 -top-10 size-36;
+}
+
+.promo-orb.two {
+  @apply -bottom-8 right-10 size-20 border-[16px] border-white/10 bg-transparent;
+}
+
+.game-grid {
+  @apply grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-4;
+}
+
+.game-card {
+  @apply min-w-0 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_7px_24px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1 hover:border-violet-200 hover:shadow-[0_16px_34px_rgba(45,39,120,0.11)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500;
+}
+
+.voucher-card {
+  @apply flex min-h-[104px] min-w-0 items-center gap-3 rounded-2xl border border-slate-200/80 bg-white p-3.5 shadow-[0_6px_22px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500;
+}
+
+.benefit-banner {
+  @apply relative overflow-hidden rounded-[24px] bg-[#eae9ff] px-5 py-8 sm:px-8 md:px-10 md:py-10;
+}
+
+.benefit-art {
+  @apply absolute -bottom-36 -right-28 size-[360px] rounded-full border-[60px] border-violet-500/10 md:-bottom-32 md:-right-12 md:size-[430px];
+}
+
+.benefit-art::after {
+  content: "";
+  @apply absolute left-10 top-10 size-32 rotate-12 rounded-[36px] bg-gradient-to-br from-violet-500 to-cyan-400 shadow-xl shadow-violet-300/40;
+}
+
+.benefit-item {
+  @apply relative z-10 flex items-center gap-3 rounded-2xl bg-white/65 p-3 backdrop-blur-sm;
+}
+
+.step-row {
+  @apply relative grid gap-4 sm:grid-cols-2 lg:grid-cols-5;
+}
+
+.step-card {
+  @apply relative z-10 flex gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 sm:block sm:min-h-[160px] sm:p-5;
+}
+
+.step-number {
+  @apply grid size-10 shrink-0 place-items-center rounded-xl bg-violet-100 text-sm font-extrabold text-violet-700;
+}
+
+.modal-backdrop {
+  @apply fixed inset-0 z-[70] grid place-items-center bg-slate-950/45 p-4 backdrop-blur-sm;
+}
+
+.modal-card {
+  @apply w-full max-w-md rounded-[22px] bg-white p-6 shadow-2xl;
+}
+
+.form-label {
+  @apply mb-2 block text-[13px] font-bold text-slate-700;
+}
+
+.form-input,
+.form-select {
+  @apply h-12 w-full rounded-xl border border-slate-200 bg-white px-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-violet-600 focus:ring-4 focus:ring-violet-200 disabled:bg-slate-100 disabled:text-slate-500;
+}
+
+.form-input.error,
+.form-select.error {
+  @apply border-red-400 focus:border-red-500 focus:ring-red-100;
+}
+
+.form-error {
+  @apply mt-1.5 flex items-center gap-1.5 text-xs font-medium text-red-600;
+}
+
+.form-card {
+  @apply rounded-[20px] border border-slate-200/80 bg-white p-4 shadow-[0_8px_28px_rgba(15,23,42,0.045)] sm:p-6;
+}
+
+.form-step-title {
+  @apply flex items-start gap-3;
+}
+
+.form-step-badge {
+  @apply grid size-8 shrink-0 place-items-center rounded-[10px] bg-violet-100 text-xs font-extrabold text-violet-700;
+}
+
+.choice-card {
+  @apply relative min-h-[86px] rounded-xl border border-slate-200 bg-white p-3 text-left transition hover:border-violet-300 hover:bg-violet-50/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500;
+}
+
+.choice-card.selected {
+  @apply border-2 border-violet-600 bg-violet-50 p-[11px];
+}
+
+.summary-card {
+  @apply rounded-[20px] border border-slate-200/80 bg-white p-5 shadow-[0_12px_34px_rgba(15,23,42,0.07)];
+}
+
+.summary-row {
+  @apply flex items-start justify-between gap-4 py-2 text-sm;
+}
+
+.status-pill {
+  @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold;
+}
+
+.state-card {
+  @apply flex min-h-[360px] flex-col items-center justify-center rounded-[22px] border border-slate-200/80 bg-white px-5 py-12 text-center;
+}
+
+.state-icon {
+  @apply grid size-14 place-items-center rounded-2xl bg-violet-100 text-violet-700;
+}
+
+.state-icon.error {
+  @apply bg-red-50 text-red-600;
+}
+
+.skeleton {
+  @apply animate-pulse bg-slate-200/80;
+  background-image: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.55), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.toast {
+  @apply flex w-full items-center gap-3 rounded-2xl border bg-white px-3 py-3 text-slate-700 shadow-xl shadow-slate-950/10;
+}
+
+.toast.success {
+  @apply border-emerald-200 text-emerald-800;
+}
+
+.toast.error {
+  @apply border-red-200 text-red-700;
+}
+
+.toast.info {
+  @apply border-violet-200 text-violet-800;
+}
+
+.footer-social {
+  @apply grid size-10 place-items-center rounded-xl bg-white/8 text-white/70 transition hover:bg-white/15 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300;
+}
+
+.footer-link {
+  @apply inline-block rounded text-[13px] text-white/55 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300;
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@keyframes hero-fade {
+  from { opacity: 0.2; transform: scale(1.008); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 639px) {
+  .hero-slide.active {
+    position: relative;
+    min-height: 410px;
+  }
+
+  .hero-slide.leaving {
+    position: absolute;
+    inset: 0;
+    min-height: 100%;
+  }
+
+  .hero-art {
+    display: block;
+    width: 65%;
+    opacity: 0.23;
+  }
+
+  .hero-chip {
+    left: 62%;
+    top: 49%;
+    width: 140px;
+    height: 140px;
+  }
+
+  .hero-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(16 18 40 / 0.3), transparent 85%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

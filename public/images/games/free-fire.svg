@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="ff-title">
+  <title id="ff-title">Sunset energy shards abstract artwork</title>
+  <defs>
+    <linearGradient id="ff-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#3b1024"/><stop offset=".46" stop-color="#a21c45"/><stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+    <radialGradient id="ff-sun"><stop stop-color="#fef3c7"/><stop offset=".35" stop-color="#fb923c"/><stop offset="1" stop-color="#fb7185" stop-opacity="0"/></radialGradient>
+    <linearGradient id="ff-glass"><stop stop-color="#fff7ed" stop-opacity=".9"/><stop offset="1" stop-color="#fdba74" stop-opacity=".08"/></linearGradient>
+    <filter id="ff-glow"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+  <rect width="800" height="520" rx="32" fill="url(#ff-bg)"/>
+  <circle cx="590" cy="162" r="178" fill="url(#ff-sun)" opacity=".8"/>
+  <path d="M0 398 163 287l105 58 120-91 134 99 121-69 157 95v141H0Z" fill="#2a1025" opacity=".72"/>
+  <g fill="url(#ff-glass)">
+    <path d="m140 71 115 158-58 16Z"/><path d="m268 103 59 173-42-8Z"/><path d="m357 56 28 173-49-41Z"/>
+    <path d="m435 286 94-97-36 132Z"/><path d="m558 282 105-65-83 123Z"/>
+  </g>
+  <path d="m93 375 256-77 110 43 246-126" fill="none" stroke="#fed7aa" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+  <path d="m98 380 252-48 107 37 242-117" fill="none" stroke="#fb7185" stroke-width="22" opacity=".3" filter="url(#ff-glow)"/>
+  <g fill="#fff7ed">
+    <circle cx="93" cy="375" r="8"/><circle cx="349" cy="298" r="8"/><circle cx="459" cy="341" r="8"/><circle cx="705" cy="215" r="8"/>
+  </g>
+  <g stroke="#fdba74" stroke-width="3" opacity=".55"><path d="M68 106h96"/><path d="M68 122h56"/><path d="M636 430h98"/></g>
+</svg>
