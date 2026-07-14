@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom'
 import { heroBanners } from '../data/content'
 import { ImageWithFallback } from './ImageWithFallback'
 
+const TRANSITION_DURATION = 700
+const bannerCount = heroBanners.length
+const carouselSlides = [heroBanners[bannerCount - 1], ...heroBanners, heroBanners[0]]
+
 const subscribeToReducedMotion = (callback: () => void) => {
   const media = window.matchMedia('(prefers-reduced-motion: reduce)')
   media.addEventListener('change', callback)
@@ -12,14 +16,31 @@ const subscribeToReducedMotion = (callback: () => void) => {
 
 const getReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-function HeroSlide({ slide, active }: { slide: (typeof heroBanners)[number]; active: boolean }) {
+const getLogicalIndex = (trackPosition: number) => {
+  if (trackPosition === 0) return bannerCount - 1
+  if (trackPosition === bannerCount + 1) return 0
+  return trackPosition - 1
+}
+
+function HeroSlide({
+  slide,
+  active,
+  logicalIndex,
+}: {
+  slide: (typeof heroBanners)[number]
+  active: boolean
+  logicalIndex: number
+}) {
   return (
     <div
-      className={`hero-slide bg-gradient-to-br ${slide.gradient} ${active ? 'active' : 'leaving'}`}
+      className={`hero-track-slide hero-slide bg-gradient-to-br ${slide.gradient} ${active ? 'active' : ''}`}
+      role="group"
+      aria-roledescription="slide"
+      aria-label={`${logicalIndex + 1} dari ${bannerCount}`}
       aria-hidden={!active}
       inert={!active}
     >
-      <ImageWithFallback src={slide.image} alt="" className="hero-media" eager={active} />
+      <ImageWithFallback src={slide.image} alt="" className="hero-media" eager />
       <div className="hero-media-overlay" aria-hidden="true" />
       <div className="hero-grid" aria-hidden="true" />
       <div className="relative z-10 max-w-[610px] px-6 pb-20 pt-11 sm:px-10 sm:pt-14 md:px-20 lg:px-14 lg:pt-[60px]">
@@ -38,37 +59,99 @@ function HeroSlide({ slide, active }: { slide: (typeof heroBanners)[number]; act
 }
 
 export function HeroCarousel() {
-  const [active, setActive] = useState(0)
-  const [previousIndex, setPreviousIndex] = useState<number | null>(null)
+  const [trackPosition, setTrackPosition] = useState(1)
+  const [transitionEnabled, setTransitionEnabled] = useState(true)
   const [manualPaused, setManualPaused] = useState(false)
   const [interacting, setInteracting] = useState(false)
   const [announcement, setAnnouncement] = useState('')
   const regionRef = useRef<HTMLDivElement>(null)
+  const movingRef = useRef(false)
   const transitionTimerRef = useRef<number | undefined>(undefined)
+  const animationFrameRef = useRef<number | undefined>(undefined)
   const reducedMotion = useSyncExternalStore(subscribeToReducedMotion, getReducedMotion, () => false)
   const paused = manualPaused || interacting || reducedMotion
+  const active = getLogicalIndex(trackPosition)
+
+  const snapToRealSlide = useCallback((position: number) => {
+    const normalizedPosition = position === 0
+      ? bannerCount
+      : position === bannerCount + 1
+        ? 1
+        : position
+
+    if (normalizedPosition === position) return
+
+    setTransitionEnabled(false)
+    setTrackPosition(normalizedPosition)
+    window.cancelAnimationFrame(animationFrameRef.current ?? 0)
+    animationFrameRef.current = window.requestAnimationFrame(() => {
+      animationFrameRef.current = window.requestAnimationFrame(() => setTransitionEnabled(true))
+    })
+  }, [])
+
+  const finishMovement = useCallback((position: number) => {
+    window.clearTimeout(transitionTimerRef.current)
+    movingRef.current = false
+    snapToRealSlide(position)
+  }, [snapToRealSlide])
+
+  const moveTrack = useCallback((position: number) => {
+    if (movingRef.current) return false
+
+    if (reducedMotion) {
+      const normalizedPosition = position === 0
+        ? bannerCount
+        : position === bannerCount + 1
+          ? 1
+          : position
+      setTrackPosition(normalizedPosition)
+      return true
+    }
+
+    movingRef.current = true
+    setTransitionEnabled(true)
+    setTrackPosition(position)
+    window.clearTimeout(transitionTimerRef.current)
+    transitionTimerRef.current = window.setTimeout(() => finishMovement(position), TRANSITION_DURATION + 120)
+    return true
+  }, [finishMovement, reducedMotion])
+
+  const announceSlide = useCallback((index: number) => {
+    setAnnouncement(`Banner ${index + 1} dari ${bannerCount}: ${heroBanners[index].title}`)
+  }, [])
+
+  const previous = useCallback((announce = true) => {
+    const nextIndex = (active - 1 + bannerCount) % bannerCount
+    if (moveTrack(trackPosition - 1) && announce) announceSlide(nextIndex)
+  }, [active, announceSlide, moveTrack, trackPosition])
+
+  const next = useCallback((announce = true) => {
+    const nextIndex = (active + 1) % bannerCount
+    if (moveTrack(trackPosition + 1) && announce) announceSlide(nextIndex)
+  }, [active, announceSlide, moveTrack, trackPosition])
 
   const changeSlide = useCallback((nextIndex: number, announce = false) => {
     if (nextIndex === active) return
-    setPreviousIndex(active)
-    setActive(nextIndex)
-    window.clearTimeout(transitionTimerRef.current)
-    transitionTimerRef.current = window.setTimeout(() => setPreviousIndex(null), reducedMotion ? 0 : 700)
-    if (announce) setAnnouncement(`Banner ${nextIndex + 1} dari ${heroBanners.length}: ${heroBanners[nextIndex].title}`)
-  }, [active, reducedMotion])
+
+    const targetPosition = active === bannerCount - 1 && nextIndex === 0
+      ? bannerCount + 1
+      : active === 0 && nextIndex === bannerCount - 1
+        ? 0
+        : nextIndex + 1
+
+    if (moveTrack(targetPosition) && announce) announceSlide(nextIndex)
+  }, [active, announceSlide, moveTrack])
 
   useEffect(() => {
     if (paused) return
-    const timer = window.setInterval(() => changeSlide((active + 1) % heroBanners.length), 5500)
+    const timer = window.setInterval(() => next(false), 5500)
     return () => window.clearInterval(timer)
-  }, [active, changeSlide, paused])
+  }, [next, paused])
 
-  useEffect(() => () => window.clearTimeout(transitionTimerRef.current), [])
-
-  const previous = () => changeSlide((active - 1 + heroBanners.length) % heroBanners.length, true)
-  const next = () => changeSlide((active + 1) % heroBanners.length, true)
-  const slide = heroBanners[active]
-  const previousSlide = previousIndex === null ? null : heroBanners[previousIndex]
+  useEffect(() => () => {
+    window.clearTimeout(transitionTimerRef.current)
+    window.cancelAnimationFrame(animationFrameRef.current ?? 0)
+  }, [])
 
   return (
     <div
@@ -80,7 +163,12 @@ export function HeroCarousel() {
       tabIndex={0}
       onMouseEnter={() => setInteracting(true)}
       onMouseLeave={() => setInteracting(false)}
-      onFocus={() => setInteracting(true)}
+      onFocus={(event) => {
+        const target = event.target
+        if (target === event.currentTarget || (target instanceof HTMLElement && target.matches('a, button'))) {
+          setInteracting(true)
+        }
+      }}
       onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setInteracting(false) }}
       onKeyDown={(event) => {
         if (event.target !== event.currentTarget) return
@@ -89,13 +177,41 @@ export function HeroCarousel() {
       }}
     >
       <h1 className="sr-only">NEXA TOPUP — top up game favorit tanpa ribet</h1>
-      {previousSlide && <HeroSlide key={previousSlide.id} slide={previousSlide} active={false} />}
-      <HeroSlide key={slide.id} slide={slide} active />
+      <div
+        className="hero-track"
+        style={{
+          transform: `translate3d(-${trackPosition * 100}%, 0, 0)`,
+          transition: transitionEnabled && !reducedMotion
+            ? `transform ${TRANSITION_DURATION}ms cubic-bezier(.22,.61,.36,1)`
+            : 'none',
+        }}
+        onTransitionEnd={(event) => {
+          if (event.target !== event.currentTarget || event.propertyName !== 'transform') return
+          finishMovement(trackPosition)
+        }}
+      >
+        {carouselSlides.map((slide, index) => {
+          const logicalIndex = index === 0
+            ? bannerCount - 1
+            : index === bannerCount + 1
+              ? 0
+              : index - 1
 
-      <button type="button" className="carousel-arrow left-4 sm:left-6" onClick={previous} aria-label="Banner sebelumnya">
+          return (
+            <HeroSlide
+              key={`${slide.id}-${index}`}
+              slide={slide}
+              active={index === trackPosition}
+              logicalIndex={logicalIndex}
+            />
+          )
+        })}
+      </div>
+
+      <button type="button" className="carousel-arrow left-4 sm:left-6" onClick={() => previous()} aria-label="Banner sebelumnya">
         <ChevronLeft className="size-5" />
       </button>
-      <button type="button" className="carousel-arrow right-4 sm:right-6" onClick={next} aria-label="Banner berikutnya">
+      <button type="button" className="carousel-arrow right-4 sm:right-6" onClick={() => next()} aria-label="Banner berikutnya">
         <ChevronRight className="size-5" />
       </button>
       <button

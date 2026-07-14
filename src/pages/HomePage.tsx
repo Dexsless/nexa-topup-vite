@@ -17,9 +17,9 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { AutoProductRail } from '../components/AutoProductRail'
 import { GameCard } from '../components/GameCard'
 import { HeroCarousel } from '../components/HeroCarousel'
-import { ProductCard } from '../components/ProductCard'
 import { Reveal } from '../components/Reveal'
 import { SectionHeading } from '../components/SectionHeading'
 import { Seo } from '../components/Seo'
@@ -82,18 +82,14 @@ export function HomePage() {
         <Reveal>
           <section className="page-container section-space" aria-labelledby="flash-sale-title">
             <SectionHeading headingId="flash-sale-title" title="Flash Sale" description="Harga spesial untuk paket favorit dalam waktu terbatas." link="/promos" linkLabel="Lihat semua" />
-            <div className="product-shelf" role="list" aria-label="Produk flash sale">
-              {flashSaleProducts.map((product) => <div key={product.id} role="listitem"><ProductCard product={product} /></div>)}
-            </div>
+            <AutoProductRail products={flashSaleProducts} ariaLabel="Produk flash sale" speed={32} />
           </section>
         </Reveal>
 
         <Reveal>
           <section className="page-container section-space" aria-labelledby="new-products-title">
             <SectionHeading headingId="new-products-title" title="Baru Ditambahkan" description="Pilihan nominal terbaru yang siap masuk ke daftar top up." link="/games" linkLabel="Lihat semua" />
-            <div className="product-shelf" role="list" aria-label="Produk baru ditambahkan">
-              {newProducts.map((product) => <div key={product.id} role="listitem"><ProductCard product={product} /></div>)}
-            </div>
+            <AutoProductRail products={newProducts} ariaLabel="Produk baru ditambahkan" reverse speed={36} />
           </section>
         </Reveal>
 
