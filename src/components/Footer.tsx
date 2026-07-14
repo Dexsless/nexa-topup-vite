@@ -40,7 +40,7 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="mt-20 bg-[#15183b] text-white md:mt-28">
+    <footer className="mt-20 border-t border-white/[0.06] bg-[#08050f] text-white md:mt-28">
       <div className="page-container pb-8 pt-12 md:pt-16">
         <div className="grid gap-10 md:grid-cols-[1.35fr_2fr] lg:gap-20">
           <div>

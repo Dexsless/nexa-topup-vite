@@ -90,7 +90,7 @@ export function HomePage() {
             <div className="benefit-art" aria-hidden="true" />
             <div className="relative z-10 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12">
               <div className="max-w-md">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-3 py-1.5 text-[11px] font-extrabold tracking-[0.12em] text-violet-700">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-400/20 bg-violet-500/10 px-3 py-1.5 text-[11px] font-extrabold tracking-[0.12em] text-violet-300">
                   <Sparkles className="size-3.5" /> KENAPA NEXA
                 </span>
                 <h2 id="benefit-title" className="mt-4 text-[26px] font-extrabold leading-tight tracking-[-0.04em] text-slate-950 md:text-[32px]">Top up lebih simpel, waktumu tetap untuk bermain.</h2>

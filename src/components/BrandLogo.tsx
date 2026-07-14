@@ -12,8 +12,8 @@ export function BrandLogo({ light = false, onClick }: BrandLogoProps) {
       <span className="brand-mark" aria-hidden="true">
         <span>N</span>
       </span>
-      <span className={`text-[15px] font-extrabold tracking-[-0.03em] ${light ? 'text-white' : 'text-slate-950'}`}>
-        {siteConfig.namePrimary} <span className={light ? 'text-cyan-300' : 'text-violet-600'}>{siteConfig.nameAccent}</span>
+      <span className="text-[15px] font-extrabold tracking-[-0.03em] text-white">
+        {siteConfig.namePrimary} <span className={light ? 'text-violet-300' : 'text-fuchsia-300'}>{siteConfig.nameAccent}</span>
       </span>
       <span className="sr-only">Kembali ke beranda {siteConfig.name}</span>
     </Link>

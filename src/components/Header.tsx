@@ -96,10 +96,10 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#0a0613]/90 backdrop-blur-xl">
         <div className="page-container flex h-16 items-center gap-4 lg:h-[72px]">
           <BrandLogo />
-          <nav className="ml-3 hidden items-center gap-1 lg:flex" aria-label="Navigasi utama">
+          <nav className="ml-5 hidden items-center gap-1 rounded-2xl border border-white/[0.045] bg-white/[0.025] p-1 lg:flex" aria-label="Navigasi utama">
             {navigation.map((item) => (
               <NavLink key={item.to} to={item.to} end={item.to === '/'} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                 {item.label}
@@ -132,8 +132,8 @@ export function Header() {
 
       {mobileOpen && (
         <div className="fixed inset-0 z-[60] lg:hidden" role="presentation">
-          <button type="button" className="absolute inset-0 bg-slate-950/35 backdrop-blur-sm" onClick={() => setMobileOpen(false)} aria-label="Tutup menu" />
-          <aside ref={menuDialogRef} className="absolute right-0 top-0 flex h-full w-[min(88vw,380px)] flex-col overflow-y-auto bg-white p-5 shadow-2xl" role="dialog" aria-modal="true" aria-label="Menu seluler">
+          <button type="button" className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} aria-label="Tutup menu" />
+          <aside ref={menuDialogRef} className="absolute right-0 top-0 flex h-full w-[min(88vw,380px)] flex-col overflow-y-auto border-l border-white/10 bg-[#110b20] p-5 text-white shadow-2xl" role="dialog" aria-modal="true" aria-label="Menu seluler">
             <div className="flex items-center justify-between">
               <BrandLogo onClick={() => setMobileOpen(false)} />
               <button type="button" className="icon-button" onClick={() => setMobileOpen(false)} aria-label="Tutup menu">
@@ -164,8 +164,8 @@ export function Header() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <span className="eyebrow">MODE DEMO</span>
-                <h2 id="login-title" className="mt-2 text-xl font-bold text-slate-950">Masuk ke {siteConfig.namePrimary}</h2>
-                <p className="mt-1 text-sm leading-6 text-slate-500">Form ini hanya simulasi antarmuka. Tidak ada akun atau data yang dikirim.</p>
+                <h2 id="login-title" className="mt-2 text-xl font-bold text-white">Masuk ke {siteConfig.namePrimary}</h2>
+                <p className="mt-1 text-sm leading-6 text-[#a39bad]">Form ini hanya simulasi antarmuka. Tidak ada akun atau data yang dikirim.</p>
               </div>
               <button type="button" className="icon-button" onClick={() => setLoginOpen(false)} aria-label="Tutup dialog">
                 <X className="size-5" />
