@@ -1,5 +1,5 @@
-import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { heroBanners } from '../data/content'
 import { ImageWithFallback } from './ImageWithFallback'
@@ -7,14 +7,6 @@ import { ImageWithFallback } from './ImageWithFallback'
 const TRANSITION_DURATION = 700
 const bannerCount = heroBanners.length
 const carouselSlides = [heroBanners[bannerCount - 1], ...heroBanners, heroBanners[0]]
-
-const subscribeToReducedMotion = (callback: () => void) => {
-  const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-  media.addEventListener('change', callback)
-  return () => media.removeEventListener('change', callback)
-}
-
-const getReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 const getLogicalIndex = (trackPosition: number) => {
   if (trackPosition === 0) return bannerCount - 1
@@ -61,15 +53,13 @@ function HeroSlide({
 export function HeroCarousel() {
   const [trackPosition, setTrackPosition] = useState(1)
   const [transitionEnabled, setTransitionEnabled] = useState(true)
-  const [manualPaused, setManualPaused] = useState(false)
   const [interacting, setInteracting] = useState(false)
   const [announcement, setAnnouncement] = useState('')
   const regionRef = useRef<HTMLDivElement>(null)
   const movingRef = useRef(false)
   const transitionTimerRef = useRef<number | undefined>(undefined)
   const animationFrameRef = useRef<number | undefined>(undefined)
-  const reducedMotion = useSyncExternalStore(subscribeToReducedMotion, getReducedMotion, () => false)
-  const paused = manualPaused || interacting || reducedMotion
+  const paused = interacting
   const active = getLogicalIndex(trackPosition)
 
   const snapToRealSlide = useCallback((position: number) => {
@@ -98,23 +88,13 @@ export function HeroCarousel() {
   const moveTrack = useCallback((position: number) => {
     if (movingRef.current) return false
 
-    if (reducedMotion) {
-      const normalizedPosition = position === 0
-        ? bannerCount
-        : position === bannerCount + 1
-          ? 1
-          : position
-      setTrackPosition(normalizedPosition)
-      return true
-    }
-
     movingRef.current = true
     setTransitionEnabled(true)
     setTrackPosition(position)
     window.clearTimeout(transitionTimerRef.current)
     transitionTimerRef.current = window.setTimeout(() => finishMovement(position), TRANSITION_DURATION + 120)
     return true
-  }, [finishMovement, reducedMotion])
+  }, [finishMovement])
 
   const announceSlide = useCallback((index: number) => {
     setAnnouncement(`Banner ${index + 1} dari ${bannerCount}: ${heroBanners[index].title}`)
@@ -161,8 +141,6 @@ export function HeroCarousel() {
       aria-roledescription="carousel"
       aria-label="Promo utama"
       tabIndex={0}
-      onMouseEnter={() => setInteracting(true)}
-      onMouseLeave={() => setInteracting(false)}
       onFocus={(event) => {
         const target = event.target
         if (target === event.currentTarget || (target instanceof HTMLElement && target.matches('a, button'))) {
@@ -181,7 +159,7 @@ export function HeroCarousel() {
         className="hero-track"
         style={{
           transform: `translate3d(-${trackPosition * 100}%, 0, 0)`,
-          transition: transitionEnabled && !reducedMotion
+          transition: transitionEnabled
             ? `transform ${TRANSITION_DURATION}ms cubic-bezier(.22,.61,.36,1)`
             : 'none',
         }}
@@ -213,15 +191,6 @@ export function HeroCarousel() {
       </button>
       <button type="button" className="carousel-arrow right-4 sm:right-6" onClick={() => next()} aria-label="Banner berikutnya">
         <ChevronRight className="size-5" />
-      </button>
-      <button
-        type="button"
-        className="absolute right-4 top-4 z-20 grid size-11 place-items-center rounded-full border border-white/15 bg-slate-950/20 text-white backdrop-blur transition hover:bg-white hover:text-slate-900 sm:right-6 sm:top-6"
-        onClick={() => setManualPaused((current) => !current)}
-        aria-label={manualPaused ? 'Lanjutkan carousel otomatis' : 'Jeda carousel otomatis'}
-        aria-pressed={manualPaused}
-      >
-        {manualPaused ? <Play className="size-4" /> : <Pause className="size-4" />}
       </button>
       <div className="absolute bottom-1 left-1/2 z-20 flex -translate-x-1/2" role="group" aria-label="Pilih banner">
         {heroBanners.map((banner, index) => (

@@ -853,21 +853,20 @@ button:disabled {
   }
 
   .hero-track {
-    transition: none !important;
+    transition-duration: 700ms !important;
+    transition-timing-function: cubic-bezier(.22,.61,.36,1) !important;
   }
 
   .product-marquee {
-    overflow-x: auto;
-    -webkit-mask-image: none;
-    mask-image: none;
+    overflow: hidden;
   }
 
   .product-marquee-track {
-    animation: none;
+    animation: product-marquee var(--marquee-duration, 34s) linear infinite !important;
   }
 
-  .product-marquee-set[aria-hidden="true"] {
-    display: none;
+  .product-marquee.reverse .product-marquee-track {
+    animation-direction: reverse !important;
   }
 }
 
