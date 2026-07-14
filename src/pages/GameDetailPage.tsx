@@ -18,7 +18,7 @@ import {
   X,
 } from 'lucide-react'
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { ErrorState } from '../components/PageStates'
 import { ImageWithFallback } from '../components/ImageWithFallback'
 import { Seo } from '../components/Seo'
@@ -41,10 +41,14 @@ export function GameDetailPage() {
   const { slug } = useParams()
   const game = getGameBySlug(slug)
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { showToast } = useToast()
   const [userId, setUserId] = useState('')
   const [zoneId, setZoneId] = useState('')
-  const [denominationId, setDenominationId] = useState('')
+  const [denominationId, setDenominationId] = useState(() => {
+    const requestedPackage = searchParams.get('package')
+    return game?.denominations.some(({ id }) => id === requestedPackage) ? requestedPackage ?? '' : ''
+  })
   const [paymentId, setPaymentId] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
   const [promoCode, setPromoCode] = useState('')

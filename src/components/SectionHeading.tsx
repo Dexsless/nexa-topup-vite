@@ -12,10 +12,10 @@ interface SectionHeadingProps {
 
 export function SectionHeading({ headingId, eyebrow, title, description, link, linkLabel = 'Lihat Semua' }: SectionHeadingProps) {
   return (
-    <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
+    <div className="section-heading">
       <div>
         {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-        <h2 id={headingId} className="mt-2 text-[22px] font-extrabold tracking-[-0.035em] text-slate-950 md:text-[28px]">{title}</h2>
+        <h2 id={headingId} className="mt-2 text-[22px] font-bold tracking-[-0.035em] text-slate-950 md:text-[30px]">{title}</h2>
         {description && <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 md:text-[15px]">{description}</p>}
       </div>
       {link && (

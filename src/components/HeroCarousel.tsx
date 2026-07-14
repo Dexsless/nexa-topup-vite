@@ -1,7 +1,8 @@
-import { ArrowRight, ChevronLeft, ChevronRight, Gamepad2, Pause, Play, Sparkles } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { Link } from 'react-router-dom'
 import { heroBanners } from '../data/content'
+import { ImageWithFallback } from './ImageWithFallback'
 
 const subscribeToReducedMotion = (callback: () => void) => {
   const media = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -18,17 +19,12 @@ function HeroSlide({ slide, active }: { slide: (typeof heroBanners)[number]; act
       aria-hidden={!active}
       inert={!active}
     >
+      <ImageWithFallback src={slide.image} alt="" className="hero-media" eager={active} />
+      <div className="hero-media-overlay" aria-hidden="true" />
       <div className="hero-grid" aria-hidden="true" />
-      <div className="hero-glow" style={{ background: slide.accent }} aria-hidden="true" />
-      <div className="hero-art" aria-hidden="true">
-        <div className="orbit orbit-one" />
-        <div className="orbit orbit-two" />
-        <div className="hero-chip"><Gamepad2 className="size-16 md:size-20" /></div>
-        <div className="hero-spark"><Sparkles className="size-8" /></div>
-      </div>
-      <div className="relative z-10 max-w-[630px] px-6 pb-20 pt-12 sm:px-10 sm:pt-16 lg:px-14 lg:pt-[68px]">
+      <div className="relative z-10 max-w-[610px] px-6 pb-20 pt-11 sm:px-10 sm:pt-14 md:px-20 lg:px-14 lg:pt-[60px]">
         <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] font-extrabold tracking-[0.16em] text-white backdrop-blur">{slide.eyebrow}</span>
-        <h2 className="mt-5 max-w-[620px] text-[31px] font-extrabold leading-[1.12] tracking-[-0.045em] text-white sm:text-[40px] lg:text-[48px]">{slide.title}</h2>
+        <h2 className="mt-5 max-w-[590px] text-[28px] font-extrabold leading-[1.1] tracking-[-0.045em] text-white sm:text-[36px] lg:text-[43px]">{slide.title}</h2>
         <p className="mt-4 max-w-[510px] text-sm leading-6 text-white/90 sm:text-[15px]">{slide.description}</p>
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <Link to={slide.cta} className="button-light" tabIndex={active ? undefined : -1}>

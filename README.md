@@ -6,7 +6,7 @@ NEXA TOPUP adalah demo website top-up game modern dan responsif yang dibangun de
 
 ## Fitur
 
-- Beranda responsif dengan header sticky, pencarian game, menu mobile, carousel promosi, promo spesial, daftar game populer, voucher, banner keuntungan, dan panduan top-up.
+- Beranda storefront responsif dengan header sticky, panel pencarian, menu mobile, carousel promosi, rak Flash Sale, produk terbaru, daftar game populer, voucher, statistik layanan, panduan top-up, FAQ, dan CTA.
 - Katalog semua game dengan pencarian, filter kategori, loading skeleton, dan empty state.
 - Halaman promo dan detail top-up dinamis untuk setiap game.
 - Form top-up bertahap dengan validasi User ID, Zone ID untuk game tertentu, nominal, metode pembayaran, WhatsApp, kode promo, persetujuan, dan ringkasan pesanan.
@@ -39,7 +39,7 @@ NEXA TOPUP adalah demo website top-up game modern dan responsif yang dibangun de
 - Tailwind CSS 4
 - React Router
 - Lucide React
-- Inter melalui `@fontsource/inter`
+- Plus Jakarta Sans melalui `@fontsource/plus-jakarta-sans`
 - ESLint
 
 ## Prasyarat
@@ -99,6 +99,8 @@ VITE_API_BASE_URL=
 ```text
 .
 |-- public/
+|   |-- images/banners/
+|   |-- images/covers/
 |   |-- images/games/
 |   |-- favicon.svg
 |   `-- og-card.svg
@@ -108,6 +110,7 @@ VITE_API_BASE_URL=
 |   |   |-- content.ts
 |   |   |-- games.ts
 |   |   |-- paymentMethods.ts
+|   |   |-- products.ts
 |   |   `-- promos.ts
 |   |-- layouts/
 |   |-- pages/

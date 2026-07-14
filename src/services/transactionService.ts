@@ -1,6 +1,7 @@
 import type { CheckoutPayload, Transaction } from '../types'
 
 const STORAGE_KEY = 'nexa-topup-transactions'
+const TRANSACTION_EVENT = 'nexa-transactions-updated'
 
 const wait = (milliseconds: number, signal?: AbortSignal) =>
   new Promise<void>((resolve, reject) => {
@@ -50,6 +51,20 @@ const createInvoiceNumber = () => {
 
 export const getTransactions = () => readTransactions()
 
+export const getTransactionCount = () => readTransactions().length
+
+export const subscribeToTransactions = (callback: () => void) => {
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === STORAGE_KEY) callback()
+  }
+  window.addEventListener('storage', handleStorage)
+  window.addEventListener(TRANSACTION_EVENT, callback)
+  return () => {
+    window.removeEventListener('storage', handleStorage)
+    window.removeEventListener(TRANSACTION_EVENT, callback)
+  }
+}
+
 export const getTransaction = (invoice?: string) =>
   readTransactions().find((transaction) => transaction.invoice.toLowerCase() === invoice?.toLowerCase())
 
@@ -81,6 +96,7 @@ export const createMockTransaction = async (payload: CheckoutPayload, signal?: A
   try {
     const next = [transaction, ...readTransactions()].slice(0, 20)
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+    window.dispatchEvent(new Event(TRANSACTION_EVENT))
   } catch {
     throw new Error('Penyimpanan browser tidak tersedia. Coba nonaktifkan mode privat lalu ulangi.')
   }

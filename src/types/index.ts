@@ -26,6 +26,21 @@ export interface Game {
   denominations: Denomination[]
 }
 
+export interface Product {
+  id: string
+  gameSlug: string
+  denominationId: string
+  name: string
+  itemLabel: string
+  publisher: string
+  category: GameCategory
+  image: string
+  price: number
+  oldPrice?: number
+  discount?: number
+  badge?: string
+}
+
 export interface Promo {
   id: string
   title: string

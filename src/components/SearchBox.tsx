@@ -6,9 +6,10 @@ interface SearchBoxProps {
   initialValue?: string
   compact?: boolean
   onNavigate?: () => void
+  autoFocus?: boolean
 }
 
-export function SearchBox({ initialValue = '', compact = false, onNavigate }: SearchBoxProps) {
+export function SearchBox({ initialValue = '', compact = false, onNavigate, autoFocus = false }: SearchBoxProps) {
   const [query, setQuery] = useState(initialValue)
   const navigate = useNavigate()
 
@@ -32,6 +33,7 @@ export function SearchBox({ initialValue = '', compact = false, onNavigate }: Se
         onChange={(event) => setQuery(event.target.value)}
         placeholder="Cari game..."
         autoComplete="off"
+        autoFocus={autoFocus}
       />
       <button type="submit" className="sr-only">Cari</button>
     </form>
